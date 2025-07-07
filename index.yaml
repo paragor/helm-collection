@@ -3,6 +3,16 @@ entries:
   general-app:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-07-07T19:33:07.949115181Z"
+    description: A Helm chart for Kubernetes
+    digest: c1de9eb5adcdb2bef8db61a3f08a7118b3b42eea4cde09fe83ff378c9a6f3894
+    name: general-app
+    type: application
+    urls:
+    - https://github.com/paragor/helm-collection/releases/download/general-app-0.0.3-helm/general-app-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-07-07T19:00:49.439448973Z"
     description: A Helm chart for Kubernetes
     digest: fd88600339b5c480d251d6dfb2910559f792c781badbadb9bc80e8e4edcd454b
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://github.com/paragor/helm-collection/releases/download/general-app-0.0.2-helm/general-app-0.0.2.tgz
     version: 0.0.2
-generated: "2025-07-07T19:00:49.439453441Z"
+generated: "2025-07-07T19:33:07.949124545Z"
