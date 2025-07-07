@@ -1,0 +1,42 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: List charts file
+        id: charts_file
+        run: echo "file_list=$(find ./charts -name Chart.yaml -mindepth 2 -maxdepth 2)" >> "$GITHUB_OUTPUT"
+      - name: Export tag without prefix
+        run: |
+          echo "GITHUB_TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_ENV"
+
+      - uses: iamazeem/substitute-action@v1
+        with:
+          enable-in-place: true
+          variables: GITHUB_TAG_VERSION
+          input-files: ${{ steps.charts_file.outputs.file_list }}
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          config: .github/helm.config.yml
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
